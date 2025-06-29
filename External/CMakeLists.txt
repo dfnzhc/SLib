@@ -19,7 +19,31 @@ macro(ConfigurePathLibrary INCLUDE_VAR HEADER_PATH TARGET_NAME)
 endmacro()
 
 # mimalloc
-#ConfigureInterfaceLibrary(mimalloc mimalloc-static Mimalloc)
-#if (MSVC)
-#    target_compile_options(Mimalloc INTERFACE /INCLUDE:mi_version)
-#endif ()
+ConfigureInterfaceLibrary(mimalloc mimalloc-static Mimalloc)
+if (MSVC)
+    target_compile_options(Mimalloc INTERFACE /INCLUDE:mi_version)
+endif ()
+
+# magic_enum
+ConfigureInterfaceLibrary(magic_enum magic_enum::magic_enum MagicEnum)
+
+# glm
+ConfigureInterfaceLibrary(glm glm::glm GLM)
+target_compile_definitions(GLM
+        INTERFACE
+        GLM_FORCE_CXX17
+        GLM_FORCE_SWIZZLE
+        GLM_FORCE_RADIANS
+        GLM_FORCE_RIGHT_HANDED
+        GLM_FORCE_DEPTH_ZERO_TO_ONE
+        GLM_ENABLE_EXPERIMENTAL
+)
+if (MSVC)
+    target_compile_options(GLM INTERFACE "/Zc:__cplusplus")
+endif ()
+
+# fmt
+ConfigureInterfaceLibrary(fmt fmt::fmt FMT)
+
+# stringzilla
+ConfigurePathLibrary(STRINGZILLA_INCLUDE_DIRS "stringzilla/drafts.h" Stringzilla)

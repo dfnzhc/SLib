@@ -4,7 +4,11 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/CMake)
 
 
 project(SLib
-        VERSION 0.0.1)
+        VERSION 0.0.1
+		LANGUAGES CXX
+		DESCRIPTION "A C++ toolkit."
+		HOMEPAGE_URL "https://github.com/dfnzhc/SLib"
+        )
 
 # --------------------------------------------------------------
 # Project Configuration
@@ -36,8 +40,14 @@ set(SLIB_VERSION_PATCH ${PROJECT_VERSION_PATCH})
 # Sources
 # --------------------------------------------------------------
 
-add_subdirectory(Source/SLib)
+######################################
+# Third-Party Library
+add_subdirectory(External)
+
+######################################
+# Sources
 set(SLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+add_subdirectory(Source/SLib)
 
 ######################################
 # Tests

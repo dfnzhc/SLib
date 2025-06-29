@@ -29,3 +29,12 @@ target_include_directories(SLib
         PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+target_link_libraries(SLib
+        PUBLIC
+        FMT
+        GLM
+        MagicEnum
+        Mimalloc
+        Stringzilla
+)
