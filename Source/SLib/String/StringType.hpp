@@ -9,7 +9,7 @@
 
 #include <string>
 #include <string_view>
-#include <fmt/format.h>
+#include <format>
 #include <stringzilla/stringzilla.hpp>
 
 namespace slib {
@@ -21,7 +21,7 @@ using StringView = sz::string_view;
 } // namespace slib
 
 template<>
-struct fmt::formatter<slib::String>
+struct std::formatter<slib::String>
 {
     constexpr auto parse(const format_parse_context& ctx) { return ctx.begin(); }
 
@@ -33,7 +33,7 @@ struct fmt::formatter<slib::String>
 };
 
 template<>
-struct fmt::formatter<slib::StringView>
+struct std::formatter<slib::StringView>
 {
     constexpr auto parse(const format_parse_context& ctx) { return ctx.begin(); }
 

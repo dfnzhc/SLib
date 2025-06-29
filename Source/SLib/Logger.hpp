@@ -12,6 +12,8 @@
 #include <SLib/String/StringType.hpp>
 #include <SLib/Math/Numeric.hpp>
 
+#include <format>
+
 namespace slib {
 
 class Logger
@@ -49,9 +51,9 @@ inline void LogTrace(std::string_view msg)
 }
 
 template<typename... Args>
-inline void LogTrace(fmt::format_string<Args...> format, Args&&... args)
+inline void LogTrace(std::format_string<Args...> format, Args&&... args)
 {
-    Logger::Get().log(Logger::Level::Trace, fmt::format(format, std::forward<Args>(args)...));
+    Logger::Get().log(Logger::Level::Trace, std::format(format, std::forward<Args>(args)...));
 }
 
 inline void LogTrace(u32 indent, std::string_view msg)
@@ -60,9 +62,9 @@ inline void LogTrace(u32 indent, std::string_view msg)
 }
 
 template<typename... Args>
-inline void LogTrace(u32 indent, fmt::format_string<Args...> format, Args&&... args)
+inline void LogTrace(u32 indent, std::format_string<Args...> format, Args&&... args)
 {
-    Logger::Get().log(Logger::Level::Trace, fmt::format(format, std::forward<Args>(args)...), indent);
+    Logger::Get().log(Logger::Level::Trace, std::format(format, std::forward<Args>(args)...), indent);
 }
 
 inline void LogInfo(std::string_view msg)
@@ -71,9 +73,9 @@ inline void LogInfo(std::string_view msg)
 }
 
 template<typename... Args>
-inline void LogInfo(fmt::format_string<Args...> format, Args&&... args)
+inline void LogInfo(std::format_string<Args...> format, Args&&... args)
 {
-    Logger::Get().log(Logger::Level::Info, fmt::format(format, std::forward<Args>(args)...));
+    Logger::Get().log(Logger::Level::Info, std::format(format, std::forward<Args>(args)...));
 }
 
 inline void LogInfo(u32 indent, std::string_view msg)
@@ -82,9 +84,9 @@ inline void LogInfo(u32 indent, std::string_view msg)
 }
 
 template<typename... Args>
-inline void LogInfo(u32 indent, fmt::format_string<Args...> format, Args&&... args)
+inline void LogInfo(u32 indent, std::format_string<Args...> format, Args&&... args)
 {
-    Logger::Get().log(Logger::Level::Info, fmt::format(format, std::forward<Args>(args)...), indent);
+    Logger::Get().log(Logger::Level::Info, std::format(format, std::forward<Args>(args)...), indent);
 }
 
 inline void LogWarn(std::string_view msg)
@@ -93,9 +95,9 @@ inline void LogWarn(std::string_view msg)
 }
 
 template<typename... Args>
-inline void LogWarn(fmt::format_string<Args...> format, Args&&... args)
+inline void LogWarn(std::format_string<Args...> format, Args&&... args)
 {
-    Logger::Get().log(Logger::Level::Warning, fmt::format(format, std::forward<Args>(args)...));
+    Logger::Get().log(Logger::Level::Warning, std::format(format, std::forward<Args>(args)...));
 }
 
 inline void LogWarn(u32 indent, std::string_view msg)
@@ -104,9 +106,9 @@ inline void LogWarn(u32 indent, std::string_view msg)
 }
 
 template<typename... Args>
-inline void LogWarn(u32 indent, fmt::format_string<Args...> format, Args&&... args)
+inline void LogWarn(u32 indent, std::format_string<Args...> format, Args&&... args)
 {
-    Logger::Get().log(Logger::Level::Warning, fmt::format(format, std::forward<Args>(args)...), indent);
+    Logger::Get().log(Logger::Level::Warning, std::format(format, std::forward<Args>(args)...), indent);
 }
 
 namespace detail {
@@ -114,9 +116,9 @@ namespace detail {
 void LogWithSourceLocation(Logger::Level level, std::source_location sl, std::string_view msg);
 
 template<typename... Args>
-inline void LogWithSourceLocation(Logger::Level level, std::source_location sl, fmt::format_string<Args...> fmt, Args&&... args)
+inline void LogWithSourceLocation(Logger::Level level, std::source_location sl, std::format_string<Args...> std, Args&&... args)
 {
-    LogWithSourceLocation(level, sl, fmt::format(fmt, std::forward<Args>(args)...));
+    LogWithSourceLocation(level, sl, std::format(std, std::forward<Args>(args)...));
 }
 
 } // namespace detail

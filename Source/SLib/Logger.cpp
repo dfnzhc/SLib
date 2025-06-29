@@ -9,7 +9,6 @@
 #include "Error.hpp"
 
 #include <mutex>
-#include <fmt/color.h>
 
 using namespace slib;
 
@@ -46,17 +45,19 @@ void Logger::log(Level level, std::string_view msg, u32 indent)
     if (level > sCurrentLevel)
         return;
 
-    fmt::color color = fmt::color::white;
-    switch (level) {
-    case Fatal   : color = fmt::color::red; break;
-    case Error   : color = fmt::color::magenta; break;
-    case Warning : color = fmt::color::coral; break;
-    case Info    : color = fmt::color::green_yellow; break;
-    case Trace   : color = fmt::color::white_smoke; break;
-    }
+    // TODO: Terminal colors
+    // fmt::color color = fmt::color::white;
+    // switch (level) {
+    // case Fatal   : color = fmt::color::red; break;
+    // case Error   : color = fmt::color::magenta; break;
+    // case Warning : color = fmt::color::coral; break;
+    // case Info    : color = fmt::color::green_yellow; break;
+    // case Trace   : color = fmt::color::white_smoke; break;
+    // }
 
     // TODO: [%(time)][%(thread_id)][%(short_source_location)][%(log_level)]%(tags): %(message)
-    const auto s = fmt::format(fmt::fg(color), "{}[{}]: {}", std::string(indent * 2, ' '), logLevelString(level), msg);
+    // std::print?
+    const auto s = std::format("[{}]: {}{}", logLevelString(level), std::string(indent * 2, ' '), msg);
     auto& os     = std::cout;
     os << s << '\n';
     std::flush(os);
@@ -70,5 +71,5 @@ void Logger::setLevel(Level level)
 
 void detail::LogWithSourceLocation(Logger::Level level, std::source_location sl, std::string_view msg)
 {
-    Logger::Get().log(level, fmt::format("{}: '{}' {}({}:{})", msg, sl.function_name(), sl.file_name(), sl.line(), sl.column()));
+    Logger::Get().log(level, std::format("{}: '{}' {}({}:{})", msg, sl.function_name(), sl.file_name(), sl.line(), sl.column()));
 }

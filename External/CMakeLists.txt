@@ -42,8 +42,5 @@ if (MSVC)
     target_compile_options(GLM INTERFACE "/Zc:__cplusplus")
 endif ()
 
-# fmt
-ConfigureInterfaceLibrary(fmt fmt::fmt FMT)
-
 # stringzilla
 ConfigurePathLibrary(STRINGZILLA_INCLUDE_DIRS "stringzilla/drafts.h" Stringzilla)

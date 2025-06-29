@@ -32,7 +32,6 @@ target_include_directories(SLib
 
 target_link_libraries(SLib
         PUBLIC
-        FMT
         GLM
         MagicEnum
         Mimalloc
