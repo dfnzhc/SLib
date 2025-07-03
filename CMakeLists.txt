@@ -47,7 +47,9 @@ add_subdirectory(External)
 ######################################
 # Sources
 set(SLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
+set(SLIB_CUDA_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/Source)
 add_subdirectory(Source/SLib)
+add_subdirectory(Source/SLibCUDA)
 
 ######################################
 # Tests

@@ -19,17 +19,12 @@
 #  error Unsupport Platform
 #endif
 
-// -------------------------
-// Compiler
-
 #if defined(_MSC_VER) && !defined(__clang__)
 #  define SLIB_COMPILER_MSVC 1
 #elif defined(__clang__)
 #  define SLIB_COMPILER_CLANG 1
 #elif defined(__GNUC__) && !defined(__clang__)
 #  define SLIB_COMPILER_GCC 1
-#elif defined(__CUDA_ARCH__) || defined(__CUDACC__)
-#  define SLIB_COMPILER_CUDA 1
 #else
 #  error Unknown Compiler
 #endif
@@ -167,7 +162,7 @@ static_assert(SLIB_CPLUSPLUS >= 202'002L, "__cplusplus >= 202002L: C++20 at leas
 #endif
 
 // debug break
-#if SLIB_ENABLE_DEBUG && !defined(SLIB_COMPILER_CUDA) // Debug break in device code is tricky/different
+#if SLIB_ENABLE_DEBUG
 
 #  if defined(SLIB_IN_WINDOWS) && defined(SLIB_COMPILER_MSVC)
 #    define SLIB_DEBUG_BREAK() __debugbreak()

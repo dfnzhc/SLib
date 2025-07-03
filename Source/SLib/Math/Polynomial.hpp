@@ -7,10 +7,41 @@
 
 #pragma once
 
+#include <array>
+
 #include <SLib/Math/Math.hpp>
 #include <SLib/Math/Constant.hpp>
 
 namespace slib {
+
+/**
+ * 多项式类型
+ */
+class Polynomial
+{
+    std::array<f32, 16> _coefficients{}; ///< 索引表示变量幂次，0 是常数项
+public:
+    // clang-format off
+    Polynomial&  c0(f32 coeff) { _coefficients[0]  = coeff; return *this; }
+    Polynomial&  c1(f32 coeff) { _coefficients[1]  = coeff; return *this; }
+    Polynomial&  c2(f32 coeff) { _coefficients[2]  = coeff; return *this; }
+    Polynomial&  c3(f32 coeff) { _coefficients[3]  = coeff; return *this; }
+    Polynomial&  c4(f32 coeff) { _coefficients[4]  = coeff; return *this; }
+    Polynomial&  c5(f32 coeff) { _coefficients[5]  = coeff; return *this; }
+    Polynomial&  c6(f32 coeff) { _coefficients[6]  = coeff; return *this; }
+    Polynomial&  c7(f32 coeff) { _coefficients[7]  = coeff; return *this; }
+    Polynomial&  c8(f32 coeff) { _coefficients[8]  = coeff; return *this; }
+    Polynomial&  c9(f32 coeff) { _coefficients[9]  = coeff; return *this; }
+    Polynomial& c10(f32 coeff) { _coefficients[10] = coeff; return *this; }
+    Polynomial& c11(f32 coeff) { _coefficients[11] = coeff; return *this; }
+    Polynomial& c12(f32 coeff) { _coefficients[12] = coeff; return *this; }
+    Polynomial& c13(f32 coeff) { _coefficients[13] = coeff; return *this; }
+    Polynomial& c14(f32 coeff) { _coefficients[14] = coeff; return *this; }
+    Polynomial& c15(f32 coeff) { _coefficients[15] = coeff; return *this; }
+
+    Polynomial& constant(f32 coeff) { _coefficients[0] = coeff; return *this; }
+    // clang-format on
+};
 
 template<typename T, typename C>
 SLIB_FUNC SLIB_CONSTEXPR T EvaluatePolynomial(T, C c)

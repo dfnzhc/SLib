@@ -10,6 +10,8 @@
 #include <cstdint>
 #include <cstddef>
 
+#include <SLib/Portable.hpp>
+
 // -------------------------
 // Invalid Some Defines
 
@@ -29,62 +31,33 @@
 #  undef log2
 #endif
 
-// -------------------------
-// Host and device macros
-
-#if defined(__CUDA_ARCH__) || defined(__CUDACC__)
-#  ifndef SLIB_GPU_CODE
-#    define SLIB_GPU_CODE 1
-#  endif
-#else
-#  ifndef SLIB_HOST_CODE
-#    define SLIB_HOST_CODE 1
-#  endif
-#endif
-
-#if SLIB_HOST_CODE
-
-// -------------------------
-// Host defines and includes
-
-#  include <limits>
+#include <limits>
 
 template<typename T>
 using numeric_limits = std::numeric_limits<T>;
 
-#  include <type_traits>
+#include <type_traits>
 
 // C++20 <bit>
-#  if __cplusplus >= 202'002L && __has_include(<bit>)
-#    include <bit>
-#    define SLIB_USE_STL_BIT 1
-#  else
-#    define SLIB_USE_STL_BIT 0
-#  endif
+#if __cplusplus >= 202'002L && __has_include(<bit>)
+#  include <bit>
+#  define SLIB_USE_STL_BIT 1
+#else
+#  define SLIB_USE_STL_BIT 0
+#endif
 
 // Compiler detection for intrinsics
-#  if defined(__clang__) || defined(__GNUC__)
-#    define SLIB_HAS_GCC_CLANG_INTRINSICS 1
-#  else
-#    define SLIB_HAS_GCC_CLANG_INTRINSICS 0
-#  endif
-
-#  if defined(_MSC_VER)
-#    define SLIB_HAS_MSVC_INTRINSICS 1
-#    include <intrin.h> // For MSVC intrinsics (_BitScanForward, _BitScanReverse, __popcnt etc.)
-#  else
-#    define SLIB_HAS_MSVC_INTRINSICS 0
-#  endif
-
+#if defined(__clang__) || defined(__GNUC__)
+#  define SLIB_HAS_GCC_CLANG_INTRINSICS 1
 #else
+#  define SLIB_HAS_GCC_CLANG_INTRINSICS 0
+#endif
 
-// -------------------------
-// Device defines and includes
-
-#  include <cuda/std/limits>
-template<typename T>
-using numeric_limits = ::cuda::std::numeric_limits<T>;
-
+#if defined(_MSC_VER)
+#  define SLIB_HAS_MSVC_INTRINSICS 1
+#  include <intrin.h> // For MSVC intrinsics (_BitScanForward, _BitScanReverse, __popcnt etc.)
+#else
+#  define SLIB_HAS_MSVC_INTRINSICS 0
 #endif
 
 #include <concepts>

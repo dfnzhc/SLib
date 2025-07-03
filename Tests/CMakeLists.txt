@@ -9,3 +9,4 @@ find_package(GTest CONFIG REQUIRED)
 
 set(${CMAKE_CURRENT_BINARY_DIR})
 
+add_subdirectory(CUDA)

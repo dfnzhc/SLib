@@ -1,19 +1,11 @@
 ﻿file(GLOB_RECURSE SOURCE_FILES ./*.hpp ./*.cpp)
+
 AssignSourceGroup(${SOURCE_FILES})
 
-add_library(SLib STATIC ${SOURCE_FILES})
-add_library(SLib::SLib ALIAS SLib)
-
-SetCompilerFlags(SLib)
-SetDefaultCompileDefinitions(SLib)
-
-target_compile_options(SLib
-        PRIVATE
-        $<$<CXX_COMPILER_ID:MSVC>:/DEBUG /Zc:preprocessor> # MSVC
-)
+add_library(Math STATIC ${SOURCE_FILES})
 
 target_compile_features(SLib
-        PUBLIC
+        PRIVATE
         cxx_std_23
 )
 
@@ -31,7 +23,10 @@ target_include_directories(SLib
 
 target_link_libraries(SLib
         PUBLIC
+        GLM
         MagicEnum
         Mimalloc
         Stringzilla
 )
+
+add_library(SLib::SLib ALIAS SLib)

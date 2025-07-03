@@ -71,12 +71,11 @@ function(SetCompilerFlags ProjectName)
     )
 
     target_compile_options(${ProjectName}
-            PUBLIC
+            PRIVATE
             $<$<COMPILE_LANG_AND_ID:CXX,MSVC>:${MSCV_FLAGS}>
             $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:${CLANG_GCC_FLAGS}>
             $<$<OR:$<CXX_COMPILER_ID:Clang>>:${CLANG_FLAGS}>
             $<$<OR:$<CXX_COMPILER_ID:GNU>>:${GCC_FLAGS}>
-            PRIVATE
             $<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/bigobj>  # big object files
     )
 endfunction(SetCompilerFlags)
@@ -100,9 +99,9 @@ function(SetDefaultCompileDefinitions ProjectName)
             $<$<CXX_COMPILER_ID:MSVC>:_CRT_SECURE_NO_WARNINGS>
             $<$<CXX_COMPILER_ID:MSVC>:_ENABLE_EXTENDED_ALIGNED_STORAGE>
             $<$<CXX_COMPILER_ID:MSVC>:_SILENCE_CXX17_CODECVT_HEADER_DEPRECATION_WARNING>
+            PRIVATE
             # Clang.
             $<$<CXX_COMPILER_ID:Clang>:_MSC_EXTENSIONS> # enable MS extensions
-            PRIVATE
             $<$<CONFIG:Debug>:_ITERATOR_DEBUG_LEVEL=0>
     )
 endfunction(SetDefaultCompileDefinitions)

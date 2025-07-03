@@ -9,7 +9,6 @@
 
 #include <SLib/Math/Math.hpp>
 #include <SLib/Math/Constant.hpp>
-
 #include <SLib/Error.hpp>
 
 namespace slib {
@@ -18,7 +17,7 @@ namespace slib {
     template<Type T>                              \
     SLIB_FUNC SLIB_CONSTEXPR T Name(T x) noexcept \
     {                                             \
-        return glm::Func(x);                      \
+        return std::Func(x);                      \
     }
 
 SLIB_DEFINE_COMMON_FUNC(cFloatType, Floor, floor)
@@ -60,13 +59,13 @@ SLIB_CONSTEXPR T ATan2(T y, T x) noexcept
 template<cSignedType T>
 SLIB_FUNC SLIB_CONSTEXPR T Abs(T x) noexcept
 {
-    return glm::abs(x);
+    return std::abs(x);
 }
 
 template<cSignedType T>
 SLIB_FUNC SLIB_CONSTEXPR T Sign(T x) noexcept
 {
-    return glm::sign(x);
+    return x;
 }
 
 template<typename T, typename... Ts>
@@ -148,7 +147,7 @@ SLIB_FUNC SLIB_CONSTEXPR bool IsFinite(auto)
 template<cFloatType T>
 SLIB_FUNC SLIB_CONSTEXPR T FMA(T a, T b, T c)
 {
-    return glm::fma(a, b, c);
+    return std::fma(a, b, c);
 }
 
 SLIB_FUNC SLIB_CONSTEXPR f32 ApproxSqrt(f32 x0)
